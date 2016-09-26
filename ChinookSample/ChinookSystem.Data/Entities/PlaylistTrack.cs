@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ChinookSystem.Data.Entities
 {
-    class PlaylistTrack
+    public class PlaylistTrack
     {
     }
 }
