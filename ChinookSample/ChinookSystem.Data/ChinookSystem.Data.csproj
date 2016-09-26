@@ -42,13 +42,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\Albumn.cs" />
+    <Compile Include="Entities\Album.cs" />
     <Compile Include="Entities\Artist.cs" />
+    <Compile Include="Entities\Genre.cs" />
+    <Compile Include="Entities\MediaType.cs" />
+    <Compile Include="Entities\PlaylistTrack.cs" />
+    <Compile Include="Entities\Track.cs" />
+    <Compile Include="POCOs\CustomerContact.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DTOs\" />
-    <Folder Include="POCOs\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
