@@ -12,14 +12,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ChinookSystem.Data.Entities
 {
-    [Table("Albumns")]
-    class Albumn
+    [Table("MediaTypes")]
+    class MediaType
     {
         [Key]
-        public int AlumnId { get; set; }
-        public string Title { get; set; }
-        public int ArtistId { get; set; }
-        public int ReleaseYear { get; set; }
-        public string ReleaseLabel { get; set; }
+        public int MediaTypeId { get; set; }
+        public string Name { get; set; }
+
+        public virtual ICollection<Track> Tracks { get; set; }
     }
 }

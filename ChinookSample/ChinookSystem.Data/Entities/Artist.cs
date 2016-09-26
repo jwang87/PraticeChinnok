@@ -25,5 +25,10 @@ namespace ChinookSystem.Data.Entities
         [Key]
         public int ArtistId { get; set; }
         public string Name { get; set; }
+        
+        //navigation properties for use by Linq
+        //these properties will be of type virtual
+        public virtual ICollection<Album> Albums { get; set; }
+
     }
 }
