@@ -28,5 +28,7 @@ namespace ChinookSystem.Data.Entities
         public virtual ICollection<PlaylistTrack> PlaylistTracks { get; set; }
         public virtual MediaType MediaTypes { get; set; }
         public virtual Album Albums { get; set; }
+        public virtual Genre Genres { get; set; }
+        public virtual ICollection<InvoiceLine> InvoiceLines { get; set; }
     }
 }

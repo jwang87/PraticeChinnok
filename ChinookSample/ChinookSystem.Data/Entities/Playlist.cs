@@ -11,13 +11,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ChinookSystem.Data.Entities
 {
-    [Table("Genres")]
-    public class Genre
+    [Table("Playlists")]
+    public class Playlist
     {
         [Key]
-        public int GenreId { get; set; }
+        public int PlaylistId { get; set; }
         public string Name { get; set; }
 
-        public virtual ICollection<Track> Tracks { get; set; }
+        public virtual ICollection<PlaylistTrack> PlaylistTracks { get; set; }
     }
 }
