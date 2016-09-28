@@ -14,7 +14,7 @@ using ChinookSystem.DAL;
 namespace ChinookSystem.BLL
 {
     [DataObject]
-    class ArtistController
+    public class ArtistController
     {
         //dump the entire aritist entities
         //this will use Entity Framework access
@@ -34,10 +34,10 @@ namespace ChinookSystem.BLL
         //this will use Linq to Entity access
         //POCO classes will be used to define the data
         [DataObjectMethod(DataObjectMethodType.Select, false)]
-        public List<> Artist_Album_Get()
+        public List<ArtistAlbums> Artist_Album_Get()
         {
             //set up transaction area
-            using (var context = new )
+            using (var context = new ChinookContext())
             {
                 //when you bring your query from LinqPad
                 //to your program you must change the 
@@ -50,13 +50,17 @@ namespace ChinookSystem.BLL
                 var results = from x in context.Albums
                               where x.ReleaseYear == 2008
                               orderby x.Artists.Name, x.Title
-                              select new
+                              select new ArtistAlbums
                               {
                                   //Name and Title are POCO
                                   //Class property names
                                   Name = x.Artists.Name,
                                   Title = x.Title
                               };
+                //the following requires the query data in memory
+                //ToList()
+                //At this point query will actually excute
+                return results.ToList();
             }
         }
     }
