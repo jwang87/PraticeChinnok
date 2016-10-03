@@ -55,6 +55,7 @@
     <Compile Include="Entities\Track.cs" />
     <Compile Include="POCOs\ArtistAlbums.cs" />
     <Compile Include="POCOs\CustomerContact.cs" />
+    <Compile Include="POCOs\RepresentitiveCustomers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
