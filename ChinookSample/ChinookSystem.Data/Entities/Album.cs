@@ -16,7 +16,7 @@ namespace ChinookSystem.Data.Entities
     public class Album
     {
         [Key]
-        public int AlumId { get; set; }
+        public int AlbumId { get; set; }
         public string Title { get; set; }
         public int ArtistId { get; set; }
         public int ReleaseYear { get; set; }
