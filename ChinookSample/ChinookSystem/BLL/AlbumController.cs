@@ -29,10 +29,7 @@ namespace ChinookSystem.BLL
                                    ReleaseYear = x.ReleaseYear
                                }).Distinct();
                 return results.ToList();
-
             }
         }
-
-
     }
 }
