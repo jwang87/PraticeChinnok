@@ -22,11 +22,11 @@ namespace ChinookSystem.Security
         //under IIS
         public void AddStartupRoles()
         {
-            foreach(string rolename in SecurityRoles.StartupSecurityRoles)
+            foreach (string rolename in SecurityRoles.StartupSecurityRoles)
             {
                 //check if the role already exists in the Security Tables
                 //located in the database
-                if(!Roles.Any(r=>r.Name.Equals(rolename)))
+                if (!Roles.Any(r => r.Name.Equals(rolename)))
                 {
                     //role is not currently in the database
                     this.Create(new IdentityRole(rolename));
