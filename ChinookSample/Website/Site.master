@@ -79,7 +79,8 @@
                             <asp:MenuItem Text="Queries" Value="bob">
                                 <asp:MenuItem Text="First Query" NavigateUrl="~/Query/FirstQuery"></asp:MenuItem>
                                 <asp:MenuItem Text="Customer Rep" NavigateUrl="~/Query/RepresentitiveCustomer"></asp:MenuItem>
-                            </asp:MenuItem>
+                            </asp:MenuItem> 
+                            <asp:MenuItem Text="Default" NavigateUrl="~/Admin/Security/Default"></asp:MenuItem>
                             <asp:MenuItem Text="About" NavigateUrl="~/About"></asp:MenuItem>
                             <asp:MenuItem Text="Contact" NavigateUrl="~/Contact"></asp:MenuItem>
                         </Items>
