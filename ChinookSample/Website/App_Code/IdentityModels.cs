@@ -34,8 +34,8 @@ namespace Website
 }
 
 namespace Website
-{    
-#region Helpers
+{
+    #region Helpers
     public static class IdentityHelper
     {
         // Used for XSRF when linking external logins
