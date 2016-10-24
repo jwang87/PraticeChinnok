@@ -25,25 +25,37 @@
                 </div>
                 <%--eof--%>
                 <div class="tab-pane fade" id="roles">
+                    <%-- DataKeyNames Contains the considered pkey field
+                        of class that is being used Insert, Update or Delete
+                        
+                        RefreshAll() will call a generic method in my code behind
+                        that will cause the ODS sets to re-bind their data --%>
                     <asp:ListView ID="RoleListView" runat="server" DataSourceID="RoleListViewODS"
-                        ItemType="=RoleProfile" InsertItemPosition="LastItem">
+                        ItemType="ChinookSystem.Security.RoleProfile" InsertItemPosition="LastItem" DataKeyNames="RoleId"
+                         OnItemInserted="RefreshAll"
+                         OnItemDeleted="RefreshAll">
                         <EmptyDataTemplate>
                             <span>No security role have been set up</span>
                         </EmptyDataTemplate>
                         <LayoutTemplate>
-                            <div class="col-sm-3 h4">Action</div>
-                            <div class="col-sm-3 h4">RoleName</div>
-                            <div class="col-sm-6 h4">Users</div>
+                            <div class="row biginfo">
+                                <div class="col-sm-3 h4">Action</div>
+                                <div class="col-sm-3 h4">RoleName</div>
+                                <div class="col-sm-6 h4">Users</div>
+                            </div>
+                            <div id="itemPlaceholder" runat="server">
+                            </div>
                         </LayoutTemplate>
                         <ItemTemplate>
-                            <div class="col-sm-3 h4">
-                                <asp:LinkButton ID="RemoveRole" runat="server">Remove</asp:LinkButton>
+                            <div class="row">
+                                                                                       <div class="col-sm-3 h4">
+                                <asp:LinkButton ID="RemoveRole" runat="server" CommandName="Delete">Remove</asp:LinkButton>
                             </div>
                             <div class="col-sm-3 h4">
-                                <%# Item.RoleName %>
+                                <%# Item.RoleNames%>
                             </div>
                             <div class="col-sm-6 h4">
-                                <asp:Repeater ID="RoleUsers" runat="server" DataSource="<%#Item.UserNames %>"
+                                <asp:Repeater ID="RoleUsers" runat="server" DataSource="<%# Item.UserNames%>"
                                      ItemType="System.String">
                                     <ItemTemplate>
                                         <%#Item %>
@@ -51,10 +63,13 @@
                                     <SeparatorTemplate>,</SeparatorTemplate>
                                 </asp:Repeater>
                             </div>
+
+                            </div>
                         </ItemTemplate>
                         <InsertItemTemplate>
-                            <div class="col-sm-3 h4">
-                                <asp:LinkButton ID="InsertRole" runat="server">Insert</asp:LinkButton>
+                            <div class="row">
+                                                            <div class="col-sm-3 h4">
+                                <asp:LinkButton ID="InsertRole" runat="server" CommandName="Insert">Insert</asp:LinkButton>
                                                                 <asp:LinkButton ID="Cancel" runat="server">Cancel</asp:LinkButton>
 
                             </div>
@@ -63,6 +78,7 @@
                                      Text='<%# BindItem.RoleName %>' placeholder="Role Name"></asp:TextBox>
                             </div>
 
+                            </div>
                         </InsertItemTemplate>
                     </asp:ListView>
                     <asp:ObjectDataSource ID="RoleListViewODS" runat="server"></asp:ObjectDataSource>
