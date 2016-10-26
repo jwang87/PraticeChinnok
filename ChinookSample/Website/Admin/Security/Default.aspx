@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="Admin_Security_Default" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="Server">
-    <div class="row Jumbotron">
+    <div class="row jumbotron">
         <h1>User and Role Administratoion</h1>
     </div>
     <div class="row">
@@ -30,15 +30,18 @@
                         
                         RefreshAll() will call a generic method in my code behind
                         that will cause the ODS sets to re-bind their data --%>
-                    <asp:ListView ID="RoleListView" runat="server" DataSourceID="RoleListViewODS"
-                        ItemType="ChinookSystem.Security.RoleProfile" InsertItemPosition="LastItem" DataKeyNames="RoleId"
-                         OnItemInserted="RefreshAll"
-                         OnItemDeleted="RefreshAll">
+                    <asp:ListView ID="RoleListView" runat="server"
+                        DataSourceID="RoleListViewODS"
+                        ItemType="ChinookSystem.Security.RoleProfile"
+                        InsertItemPosition="LastItem"
+                        DataKeyNames="RoleId"
+                        OnItemInserted="RefreshAll"
+                        OnItemDeleted="RefreshAll">
                         <EmptyDataTemplate>
                             <span>No security role have been set up</span>
                         </EmptyDataTemplate>
                         <LayoutTemplate>
-                            <div class="row biginfo">
+                            <div class="row bginfo">
                                 <div class="col-sm-3 h4">Action</div>
                                 <div class="col-sm-3 h4">RoleName</div>
                                 <div class="col-sm-6 h4">Users</div>
@@ -48,43 +51,82 @@
                         </LayoutTemplate>
                         <ItemTemplate>
                             <div class="row">
-                                                                                       <div class="col-sm-3 h4">
-                                <asp:LinkButton ID="RemoveRole" runat="server" CommandName="Delete">Remove</asp:LinkButton>
-                            </div>
-                            <div class="col-sm-3 h4">
-                                <%# Item.RoleNames%>
-                            </div>
-                            <div class="col-sm-6 h4">
-                                <asp:Repeater ID="RoleUsers" runat="server" DataSource="<%# Item.UserNames%>"
-                                     ItemType="System.String">
-                                    <ItemTemplate>
-                                        <%#Item %>
-                                    </ItemTemplate
-                                    <SeparatorTemplate>,</SeparatorTemplate>
-                                </asp:Repeater>
-                            </div>
-
+                                <div class="col-sm-3">
+                                    <asp:LinkButton ID="RemoveRole" runat="server" CommandName="Delete">Remove</asp:LinkButton>
+                                </div>
+                                <div class="col-sm-3">
+                                    <%# Item.RoleName %>
+                                </div>
+                                <div class="col-sm-6">
+                                    <asp:Repeater ID="RoleUsers" runat="server"
+                                        DataSource="<%#Item.UserNames%>"
+                                        ItemType="System.String">
+                                        <ItemTemplate>
+                                            <%# Item %>
+                                        </ItemTemplate>
+                                        <SeparatorTemplate>, </SeparatorTemplate>
+                                    </asp:Repeater>
+                                </div>
                             </div>
                         </ItemTemplate>
                         <InsertItemTemplate>
                             <div class="row">
-                                                            <div class="col-sm-3 h4">
-                                <asp:LinkButton ID="InsertRole" runat="server" CommandName="Insert">Insert</asp:LinkButton>
-                                                                <asp:LinkButton ID="Cancel" runat="server">Cancel</asp:LinkButton>
-
-                            </div>
-                            <div class="col-sm-3 h4">
-                                <asp:TextBox ID="RoleName" runat="server"
-                                     Text='<%# BindItem.RoleName %>' placeholder="Role Name"></asp:TextBox>
-                            </div>
-
+                                <div class="col-sm-3">
+                                    <asp:LinkButton ID="InsertRole" runat="server" CommandName="Insert">Insert</asp:LinkButton>
+                                    <asp:LinkButton ID="Cancel" runat="server">Cancel</asp:LinkButton>
+                                </div>
+                                <div class="col-sm-3">
+                                    <asp:TextBox ID="RoleName" runat="server"
+                                        Text='<%# BindItem.RoleName %>' placeholder="Role Name"></asp:TextBox>
+                                </div>
                             </div>
                         </InsertItemTemplate>
                     </asp:ListView>
-                    <asp:ObjectDataSource ID="RoleListViewODS" runat="server"></asp:ObjectDataSource>
+                    <asp:ObjectDataSource ID="RoleListViewODS"
+                        runat="server"
+                        DataObjectTypeName="ChinookSystem.Security.RoleManager"
+                        DeleteMethod="RemoveRole"
+                        InsertMethod="AddRole"
+                        SelectMethod="ListAllRoles"
+                        OldValuesParameterFormatString="original_{0}"
+                        TypeName="ChinookSystem.Security.RoleManager"></asp:ObjectDataSource>
                 </div>
                 <%--eof--%>
                 <div class="tab-pane fade" id="unregistered">
+                    <h1>Unregistered Users</h1>
+                    <asp:GridView ID="UnregisteredUsersGridView" runat="server"
+                        AutoGenerateColumns="False"
+                        DataSourceID="UnregisteredUsersODS"
+                        DataKeyNames="UserId"
+                        ItemType="ChinookSystem.Security.UnregisteredUserProfile"
+                        OnSelectedIndexChanging="UnregisteredUsersGridView_SelectedIndexChanging">
+                        <Columns>
+                            <asp:CommandField SelectText="Register" ShowSelectButton="True"></asp:CommandField>
+                            <asp:BoundField DataField="UserType" HeaderText="UserType" SortExpression="UserType"></asp:BoundField>
+                            <asp:BoundField DataField="FirstName" HeaderText="FirstName" SortExpression="FirstName"></asp:BoundField>
+                            <asp:BoundField DataField="Lastname" HeaderText="Lastname" SortExpression="Lastname"></asp:BoundField>
+                            <asp:TemplateField HeaderText="AssignedUserName" SortExpression="AssignedUserName">
+                                <ItemTemplate>
+                                    <asp:TextBox runat="server" Text='<%# Bind("AssignedUserName") %>'
+                                        ID="AssignedUserName"></asp:TextBox>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="AssignedEmail" SortExpression="AssignedEmail">
+                                <ItemTemplate>
+                                    <asp:TextBox runat="server" Text='<%# Bind("AssignedEmail") %>'
+                                        ID="AssignedEmail"></asp:TextBox>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                        </Columns>
+                        <EmptyDataTemplate>
+                            No unregistered users to process
+                        </EmptyDataTemplate>
+                    </asp:GridView>
+                    <asp:ObjectDataSource ID="UnregisteredUsersODS" runat="server"
+                        OldValuesParameterFormatString="original_{0}"
+                        SelectMethod="ListAllUnRegisteredUsers"
+                        TypeName="ChinookSystem.Security.UserManager">
+                    </asp:ObjectDataSource>
                 </div>
                 <%--eof--%>
             </div>

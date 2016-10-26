@@ -35,7 +35,7 @@ namespace ChinookSystem.Security
             }
         }//eom
         [DataObjectMethod(DataObjectMethodType.Select, false)]
-        public List<RoleProfile> ListAllRole()
+        public List<RoleProfile> ListAllRoles()
         {
             var um = new UserManager();
             //the data from Roles needs to be in memory

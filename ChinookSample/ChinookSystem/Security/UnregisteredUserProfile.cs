@@ -14,7 +14,7 @@ namespace ChinookSystem.Security
     }
     public class UnregisteredUserProfile
     {
-        public string UserId { get; set; } //generated when added
+        public int UserId { get; set; } //generated when added
         public string UserName { get; set; } //collected
         public string FirstName { get; set; } //comes from the user table
         public string LastName { get; set; } //comes from the user table
