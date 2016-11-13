@@ -14,12 +14,13 @@ namespace ChinookSystem.Security
     }
     public class UnregisteredUserProfile
     {
-        public int UserId { get; set; } //generated when added
-        public string UserName { get; set; } //collected
+        public int CustomerEmployeeId { get; set; }
+        //public int UserId { get; set; } //generated when added
+        public string AssignedUserName { get; set; } //collected
         public string FirstName { get; set; } //comes from the user table
         public string LastName { get; set; } //comes from the user table
-        public string Email { get; set; } //collected
-        public UnRegisteredUserType UserTpye { get; set; }
+        public string AssignedEmail { get; set; } //collected
+        public UnRegisteredUserType UserType { get; set; }
 
     }
 }

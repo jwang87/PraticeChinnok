@@ -66,11 +66,12 @@ public partial class Admin_Security_Default : System.Web.UI.Page
             //columns are index (string at 0)
             UnregisteredUserProfile user = new UnregisteredUserProfile()
             {
-                UserId = int.Parse(UnregisteredUsersGridView.SelectedDataKey.Value.ToString()),
-                UserTpye = (UnRegisteredUserType)Enum.Parse(typeof(UnRegisteredUserType), agvrow.Cells[1].Text),
+                CustomerEmployeeId = int.Parse(UnregisteredUsersGridView.SelectedDataKey.Value.ToString()),
+                UserType = (UnRegisteredUserType)Enum.Parse(typeof(UnRegisteredUserType), agvrow.Cells[1].Text),
                 FirstName = agvrow.Cells[2].Text,
                 LastName = agvrow.Cells[3].Text,
-                Email = assignedEmail
+                AssignedEmail = assignedEmail,
+                AssignedUserName = assignedusername
             };
             //register the user via the Chinook.UserManager controller
             UserManager sysmgr = new UserManager();
@@ -79,6 +80,35 @@ public partial class Admin_Security_Default : System.Web.UI.Page
             //assume successful creation of a user
             //refresh the form
             DataBind();
+        }
+    }
+
+    protected void UserListView_ItemInserting(object sender, ListViewInsertEventArgs e)
+    {
+        //one needs to walk through the checkboxlist
+
+        //create the RoleMembership string List<T> of selected roles
+        var addtoroles = new List<string>();
+
+        //point to the physical checkboxlist control
+        var roles = e.Item.FindControl("RoleMembership") as CheckBoxList;
+
+        //does the control exist -safety check
+        if (roles != null)
+        {
+            //cycle trhough the checkboxlist
+            //find which roles have been selected (checked)
+            //add to the List<string>
+            //assign the List<string> to the inserting instance
+            //      represented by e
+            foreach(ListItem role in roles.Items)
+            {
+                if(role.Selected)
+                {
+                    addtoroles.Add(role.Value);
+                }
+                e.Values["RoleMembership"] = addtoroles;
+            }
         }
     }
 }
