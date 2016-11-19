@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 
 #region Additional Namespaces
 using Microsoft.AspNet.Identity.EntityFramework; //UserStore
@@ -48,7 +49,6 @@ namespace ChinookSystem.Security
                 //this command creats a record on the security UserRole talbe (AspNetUserRoles)
                 this.AddToRole(webMasterAccount.Id, SecurityRoles.WebsiteAdmin);
             }
-
         }//eom
 
         //create the crud methods for adding the user to the security user table
@@ -91,6 +91,7 @@ namespace ChinookSystem.Security
                                              }).ToList();
 
                 return unregisteredEmployees.Union(unregisteredCustomers).ToList();
+
             }
         }//eom
         //register an user to the User Table (gridview)
